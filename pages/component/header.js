@@ -1,5 +1,4 @@
 import Link from 'next/link'
-import {getHeaderMenu, getAllPostsForHome} from '../lib/api'
 
 export default function Header(data) {
     // console.log(data)
