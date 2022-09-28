@@ -7,7 +7,10 @@ import Footer from './component/footer'
 
 export default function Home(data) {
   return <>
-            <Head dangerouslySetInnerHTML={{ __html: data.post.yoast_head }} />
+            <Head dangerouslySetInnerHTML={{ __html: data.post.yoast_head }} >
+            <title>My page title</title>
+        <meta name="viewport" content="initial-scale=1.0, width=device-width" />
+        </Head>
             <Header />
             <div
             // className={styles.content}
