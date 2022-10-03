@@ -14,7 +14,7 @@ export default function Footer(data) {
                <button className="menu-toggle" aria-controls="primary-menu" aria-expanded="false">Primary Menu</button>
                <div className="menu-footer-menu-container">
                   <ul id="footer-menu" className="menu">
-                  {data.footers.map((item) => {
+                  {data.footers && data.footers.map((item) => {
                      return (
                         <li key={item.node.databaseId} id={"menu-item-" + item.node.databaseId} className={"menu-item menu-item-type-post_type menu-item-object-page menu-item-" + item.node.databaseId}><Link href={item.node.path}>{item.node.label}</Link></li>
                      )

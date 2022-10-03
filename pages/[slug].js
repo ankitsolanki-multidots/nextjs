@@ -2,6 +2,8 @@ import Link from 'next/link'
 import Header from './component/header'
 import Footer from './component/footer'
 import Head from 'next/head'
+import Script from 'next/script'
+
 
 export default function Post( data ){
 
@@ -9,8 +11,9 @@ export default function Post( data ){
     return (
         <>
             <Header headers={data.headers} />
+            <Script src="/js/contact-form-submit.js"></Script>
             <Head>
-            <script src="/js/contact-form-submit.js" />
+            {/* <script src="/js/contact-form-submit.js" /> */}
             <title>{data.post.yoast_head_json.title}</title>
             <meta name="description" content={data.post.yoast_head_json.description} />
             {/* <meta name="robots" content="noindex, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1" /> */}
