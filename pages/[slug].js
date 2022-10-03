@@ -5,11 +5,12 @@ import Head from 'next/head'
 
 export default function Post( data ){
 
-    // console.log(data.post)
+    console.log(data)
     return (
         <>
-            <Header />
+            <Header headers={data.headers} />
             <Head>
+            <script src="/js/contact-form-submit.js" />
             <title>{data.post.yoast_head_json.title}</title>
             <meta name="description" content={data.post.yoast_head_json.description} />
             {/* <meta name="robots" content="noindex, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1" /> */}
@@ -30,7 +31,7 @@ export default function Post( data ){
             // className={styles.content}
             dangerouslySetInnerHTML={{ __html: data.post.content.rendered }}
         />
-            <Footer>
+            <Footer footers={data.footer}>
 
             </Footer>
       </>
@@ -41,14 +42,51 @@ export default function Post( data ){
 export const getServerSideProps = async ({
     params,
   }) => {
-    // console.log(params)
-    // // const data = await getPostAndMorePosts(params?.slug, preview, previewData)
+    console.log(params)
+    // const data = await getPostAndMorePosts(params?.slug, preview, previewData)
   
     // return {
     //   props: {
     //     params,
     //   },
     // }
+    const queryy = `
+    {
+        menus {
+          nodes {
+            id
+            databaseId
+            name
+            menuItems {
+              edges {
+                node {
+                  id
+                  label
+                  path
+                  parentId
+                }
+              }
+            }
+          }
+        }
+      }
+  `
+  const variables = {
+    onlyEnabled: false,
+    };
+    const headers = { 'Content-Type': 'application/json' }
+    const ress = await fetch('https://prj-frontity-tro.md-staging.com/graphql', {
+        headers,
+        method: 'POST',
+        body: JSON.stringify({
+            query: queryy,
+        }),
+      })
+      console.log('queryy', queryy)
+    
+      const json = await ress.json()
+      console.log('json', json.data.menus.nodes[0].menuItems.edges)
+      console.log('json', json.data.menus.nodes[1].menuItems.edges)
 
     let query = `https://prj-frontity-tro.md-staging.com/wp-json/wp/v2/pages?slug=` + params?.slug;
     const res = await fetch(query)
@@ -56,5 +94,5 @@ export const getServerSideProps = async ({
     // console.log(data)
     // Pass data to the page via props
     let post = data.length > 0 ? data[0] : [];
-    return { props: { post } }
+    return { props: { post, headers: json.data.menus.nodes[1].menuItems.edges, footer: json.data.menus.nodes[0].menuItems.edges } }
   }

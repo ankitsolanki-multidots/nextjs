@@ -25,12 +25,12 @@ export default function Home(data) {
 
         <meta name="viewport" content="initial-scale=1.0, width=device-width" />
         </Head>
-            <Header />
+            <Header headers={data.headers} />
             <div
             // className={styles.content}
             dangerouslySetInnerHTML={{ __html: data.post.content.rendered }}
         />
-            <Footer>
+            <Footer footers={data.footer}>
 
             </Footer>
       </>
@@ -42,8 +42,47 @@ export const getServerSideProps = async ({
   let query = `https://prj-frontity-tro.md-staging.com/wp-json/wp/v2/pages?slug=home`;
   const res = await fetch(query)
   const data = await res.json()
-  console.log(data)
+  // console.log(data)
   // Pass data to the page via props
+  const queryy = `
+    {
+        menus {
+          nodes {
+            id
+            databaseId
+            name
+            menuItems {
+              edges {
+                node {
+                  id
+                  label
+                  path
+                  parentId
+                }
+              }
+            }
+          }
+        }
+      }
+  `
+  const variables = {
+    onlyEnabled: false,
+    };
+    const headers = { 'Content-Type': 'application/json' }
+    const ress = await fetch('https://prj-frontity-tro.md-staging.com/graphql', {
+        headers,
+        method: 'POST',
+        body: JSON.stringify({
+            query: queryy,
+        }),
+      })
+      console.log('queryy', queryy)
+    
+      const json = await ress.json()
+      // console.log(json)
+      // console.log('json', json.data.menus.nodes[0].menuItems.edges)
+      // console.log('json', json.data.menus.nodes[1].menuItems.edges)
+
   let post = data.length > 0 ? data[0] : [];
-  return { props: { post } }
+  return { props: { post, headers: json.data.menus.nodes[1].menuItems.edges, footer: json.data.menus.nodes[0].menuItems.edges } }
 }

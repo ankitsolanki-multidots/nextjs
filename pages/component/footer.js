@@ -14,17 +14,17 @@ export default function Footer(data) {
                <button className="menu-toggle" aria-controls="primary-menu" aria-expanded="false">Primary Menu</button>
                <div className="menu-footer-menu-container">
                   <ul id="footer-menu" className="menu">
-                  {/* {state.theme.headerMenu.map((item) => {
+                  {data.footers.map((item) => {
                      return (
-                        <li id={"menu-item-" + item.ID} className={"menu-item menu-item-type-post_type menu-item-object-page menu-item-" + item.ID}><Link href={item.url}>{item.title}</Link></li>
+                        <li key={item.node.databaseId} id={"menu-item-" + item.node.databaseId} className={"menu-item menu-item-type-post_type menu-item-object-page menu-item-" + item.node.databaseId}><Link href={item.node.path}>{item.node.label}</Link></li>
                      )
-                  })} */}
-                     <li id="menu-item-56" className="menu-item menu-item-type-post_type menu-item-object-page menu-item-56"><Link href="/brands/">Brands</Link></li>
+                  })}
+                     {/* <li id="menu-item-56" className="menu-item menu-item-type-post_type menu-item-object-page menu-item-56"><Link href="/brands/">Brands</Link></li>
                      <li id="menu-item-58" className="menu-item menu-item-type-post_type menu-item-object-page menu-item-58"><Link href="/news/">News</Link></li>
                      <li id="menu-item-1351" className="menu-item menu-item-type-post_type menu-item-object-page menu-item-1351"><Link href="/careers/">Careers</Link></li>
                      <li id="menu-item-57" className="menu-item menu-item-type-post_type menu-item-object-page menu-item-57"><Link href="/contact/">Contact</Link></li>
                      <li id="menu-item-55" className="menu-item menu-item-type-post_type menu-item-object-page menu-item-privacy-policy menu-item-55"><Link href="/privacy-policy/">Privacy Policy</Link></li>
-                     <li id="menu-item-59" className="menu-item menu-item-type-post_type menu-item-object-page menu-item-59"><Link href="/terms-of-use/">Terms of Use</Link></li>
+                     <li id="menu-item-59" className="menu-item menu-item-type-post_type menu-item-object-page menu-item-59"><Link href="/terms-of-use/">Terms of Use</Link></li> */}
                   </ul>
                </div>
             </nav>

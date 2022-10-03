@@ -1,7 +1,6 @@
 import Link from 'next/link'
 
 export default function Header(data) {
-    // console.log(data)
     return <>
         <header id="masthead" className="site-header">
    <div className="container">
@@ -24,19 +23,19 @@ export default function Header(data) {
                         <li id={"menu-item-" + item.ID} className={"menu-item menu-item-type-post_type menu-item-object-page menu-item-" + item.ID}><Link href={item.url}>{item.title}</Link></li>
                      )
                   })} */}
-                  {/* {
-                     state.theme.HeaderMenuGraph && state.theme.HeaderMenuGraph.menuItems.edges.map((item) => {
+                  {
+                     data.headers && data.headers.map((item) => {
                         return (
-                           <li id={"menu-item-" + item.node.databaseId} className={"menu-item menu-item-type-post_type menu-item-object-page menu-item-" + item.node.databaseId}><Link href={item.node.path}>{item.node.label}</Link></li>
+                           <li key={item.node.databaseId} id={"menu-item-" + item.node.databaseId} className={"menu-item menu-item-type-post_type menu-item-object-page menu-item-" + item.node.databaseId}><Link href={item.node.path}>{item.node.label}</Link></li>
                         )
                      })
-                  } */}
+                  }
                   {/* <li id="menu-item-33" className="menu-item menu-item-type-post_type menu-item-object-page menu-item-33"><Link href="/contact-demo/">Contact Custom</Link></li> */}
-                  <li id="menu-item-31" className="menu-item menu-item-type-post_type menu-item-object-page menu-item-31"><Link href="/about-us/">About Us</Link></li>
+                  {/* <li id="menu-item-31" className="menu-item menu-item-type-post_type menu-item-object-page menu-item-31"><Link href="/about-us/">About Us</Link></li>
                   <li id="menu-item-32" className="menu-item menu-item-type-post_type menu-item-object-page menu-item-32"><Link href="/brands/">Brands</Link></li>
                   <li id="menu-item-34" className="menu-item menu-item-type-post_type menu-item-object-page menu-item-34"><Link href="/news/">News</Link></li>
                   <li id="menu-item-1352" className="menu-item menu-item-type-post_type menu-item-object-page menu-item-1352"><Link href="/careers/">Careers</Link></li>
-                  <li id="menu-item-33" className="menu-item menu-item-type-post_type menu-item-object-page menu-item-33"><Link href="/contact/">Contact</Link></li>
+                  <li id="menu-item-33" className="menu-item menu-item-type-post_type menu-item-object-page menu-item-33"><Link href="/contact/">Contact</Link></li> */}
                </ul>
             </div>
          </nav>
@@ -45,48 +44,3 @@ export default function Header(data) {
 </header>
     </>
 }
-
-export async function getServerSideProps(context) {
-
-    // const data = await getHeaderMenu();
-    const query = `
-    {
-        query GETMenus {
-            menus {
-              nodes {
-                id
-                databaseId
-                name
-                menuItems {
-                  edges {
-                    node {
-                      id
-                      databaseId
-                      label
-                      parentId
-                      path
-                    }
-                  }
-                }
-              }
-            }
-          }
-    }
-  `
-    const headers = { 'Content-Type': 'application/json' }
-    const res = await fetch('https://prj-frontity-tro.md-staging.com/graphql', {
-        headers,
-        method: 'POST',
-        body: JSON.stringify({
-          query,
-        }),
-      })
-      console.log('query', query)
-    
-      const json = await res.json()
-      console.log('json', json)
-    // console.log('dsdsds',post)
-    return {
-      props: {data}, // will be passed to the page component as props
-    }
-  }
