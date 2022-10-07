@@ -1,4 +1,6 @@
 import Link from 'next/link'
+import Image from 'next/image'
+
 
 export default function Header(data) {
     return <>
@@ -7,7 +9,7 @@ export default function Header(data) {
       <div className="header-raw">
          <div className="site-branding">
             <Link href="/" className="custom-logo-link" rel="home" aria-current="page">
-            <img src="https://prj-tropicana.md-staging.com/wp-content/uploads/2022/01/Tropicana-Brands-Group-408x116.webp" className="main_logo_header" alt="Tropicana Brands" srcSet="https://prj-tropicana.md-staging.com/wp-content/uploads/2022/01/Tropicana-Brands-Group-408x116.webp 408w, https://prj-tropicana.md-staging.com/wp-content/uploads/2022/01/Tropicana-Brands-Group-300x85.webp 300w, https://prj-tropicana.md-staging.com/wp-content/uploads/2022/01/Tropicana-Brands-Group-768x218.webp 768w, https://prj-tropicana.md-staging.com/wp-content/uploads/2022/01/Tropicana-Brands-Group-150x43.webp 150w, https://prj-tropicana.md-staging.com/wp-content/uploads/2022/01/Tropicana-Brands-Group-90x26.webp 90w, https://prj-tropicana.md-staging.com/wp-content/uploads/2022/01/Tropicana-Brands-Group.webp 1000w" sizes="(max-width: 408px) 100vw, 408px" width="408" height="116" /></Link>
+            <Image src="https://prj-tropicana.md-staging.com/wp-content/uploads/2022/01/Tropicana-Brands-Group-408x116.webp" className="main_logo_header" alt="Tropicana Brands" width={408} height={116} /></Link>
          </div>
          <nav id="site-navigation" className="main-navigation">
             <button className="menu-toggle" aria-controls="primary-menu" aria-expanded="false">
@@ -17,7 +19,7 @@ export default function Header(data) {
             <span className="bottom"></span>
             </button>
             <div className="menu-main-menu-container">
-               <ul id="primary-menu" className="menu nav-menu">
+               <ul key={Math.random()} id="primary-menu" className="menu nav-menu">
                   {/* {state.theme.headerMenu.map((item) => {
                      return (
                         <li id={"menu-item-" + item.ID} className={"menu-item menu-item-type-post_type menu-item-object-page menu-item-" + item.ID}><Link href={item.url}>{item.title}</Link></li>
@@ -26,7 +28,7 @@ export default function Header(data) {
                   {
                      data.headers && data.headers.map((item) => {
                         return (
-                           <li key={item.node.databaseId} id={"menu-item-" + item.node.databaseId} className={"menu-item menu-item-type-post_type menu-item-object-page menu-item-" + item.node.databaseId}><Link href={item.node.path}>{item.node.label}</Link></li>
+                           <li key={Math.random()} id={"menu-item-" + item.node.databaseId} className={"menu-item menu-item-type-post_type menu-item-object-page menu-item-" + item.node.databaseId}><Link href={item.node.path}>{item.node.label}</Link></li>
                         )
                      })
                   }

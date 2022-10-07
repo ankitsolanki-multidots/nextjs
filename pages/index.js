@@ -36,7 +36,7 @@ export default function Home(data) {
       </>
 }
 
-export const getServerSideProps = async ({
+export const getStaticProps = async ({
   params,
 }) => {
   let query = `https://prj-frontity-tro.md-staging.com/wp-json/wp/v2/pages?slug=home`;

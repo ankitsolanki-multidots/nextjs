@@ -42,7 +42,7 @@ export default function Post( data ){
 
 }
 
-export const getServerSideProps = async ({
+export const getStaticProps = async ({
     params,
   }) => {
     console.log(params)
@@ -99,3 +99,44 @@ export const getServerSideProps = async ({
     let post = data.length > 0 ? data[0] : [];
     return { props: { post, headers: json.data.menus.nodes[1].menuItems.edges, footer: json.data.menus.nodes[0].menuItems.edges } }
   }
+
+  export async function getStaticPaths() {
+
+    const queryy = `
+    {
+      pages(first: 1000) {
+        edges {
+          node {
+            slug
+          }
+        }
+      }
+    }
+  `
+  const variables = {
+    onlyEnabled: false,
+    };
+    const headers = { 'Content-Type': 'application/json' }
+    const ress = await fetch('https://prj-frontity-tro.md-staging.com/graphql', {
+        headers,
+        method: 'POST',
+        body: JSON.stringify({
+            query: queryy,
+        }),
+      })
+      console.log('queryy', queryy)
+    
+      const json = await ress.json()
+      console.log(json.data.pages.edges)
+
+    const pathsData = [];
+
+    json.data.pages.edges.map((product) => {
+        pathsData.push({ params: { slug: `${product.node.slug}` } });
+    });
+
+    return {
+        paths: pathsData,
+        fallback: true
+    };
+}
