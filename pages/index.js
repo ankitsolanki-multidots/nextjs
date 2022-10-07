@@ -36,9 +36,7 @@ export default function Home(data) {
       </>
 }
 
-export const getStaticProps = async ({
-  params,
-}) => {
+export const getStaticProps = async () => {
   let query = `https://prj-frontity-tro.md-staging.com/wp-json/wp/v2/pages?slug=home`;
   const res = await fetch(query)
   const data = await res.json()

@@ -137,6 +137,6 @@ export const getStaticProps = async ({
 
     return {
         paths: pathsData,
-        fallback: true
+        fallback: false
     };
 }
