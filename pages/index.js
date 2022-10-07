@@ -74,7 +74,7 @@ export const getStaticProps = async () => {
             query: queryy,
         }),
       })
-      console.log('queryy', queryy)
+      // console.log('queryy', queryy)
     
       const json = await ress.json()
       // console.log(json)
@@ -82,5 +82,5 @@ export const getStaticProps = async () => {
       // console.log('json', json.data.menus.nodes[1].menuItems.edges)
 
   let post = data.length > 0 ? data[0] : [];
-  return { props: { post, headers: json.data.menus.nodes[1].menuItems.edges, footer: json.data.menus.nodes[0].menuItems.edges } }
+  return { props: { post, headers: json.data.menus.nodes[1].menuItems.edges, footer: json.data.menus.nodes[0].menuItems.edges }, revalidate: 10,  }
 }

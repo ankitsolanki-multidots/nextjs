@@ -7,7 +7,10 @@ import Script from 'next/script'
 
 export default function Post( data ){
 
-    console.log(data)
+    // console.log(data, data)
+    if(Object.keys(data).length === 0) {
+      return (<></>)
+    }
     return (
         <>
             <Header headers={data.headers} />
@@ -45,7 +48,7 @@ export default function Post( data ){
 export const getStaticProps = async ({
     params,
   }) => {
-    console.log(params)
+    console.log(`Building slug: ${params.slug}`)
     // const data = await getPostAndMorePosts(params?.slug, preview, previewData)
   
     // return {
@@ -85,11 +88,11 @@ export const getStaticProps = async ({
             query: queryy,
         }),
       })
-      console.log('queryy', queryy)
+      // console.log('queryy', queryy)
     
       const json = await ress.json()
-      console.log('json', json.data.menus.nodes[0].menuItems.edges)
-      console.log('json', json.data.menus.nodes[1].menuItems.edges)
+      // console.log('json', json.data.menus.nodes[0].menuItems.edges)
+      // console.log('json', json.data.menus.nodes[1].menuItems.edges)
 
     let query = `https://prj-frontity-tro.md-staging.com/wp-json/wp/v2/pages?slug=` + params?.slug;
     const res = await fetch(query)
@@ -97,7 +100,7 @@ export const getStaticProps = async ({
     // console.log(data)
     // Pass data to the page via props
     let post = data.length > 0 ? data[0] : [];
-    return { props: { post, headers: json.data.menus.nodes[1].menuItems.edges, footer: json.data.menus.nodes[0].menuItems.edges } }
+    return { props: { post, headers: json.data.menus.nodes[1].menuItems.edges, footer: json.data.menus.nodes[0].menuItems.edges }, revalidate: 10,  }
   }
 
   export async function getStaticPaths() {
@@ -124,7 +127,7 @@ export const getStaticProps = async ({
             query: queryy,
         }),
       })
-      console.log('queryy', queryy)
+      // console.log('queryy', queryy)
     
       const json = await ress.json()
       console.log(json.data.pages.edges)
@@ -137,6 +140,6 @@ export const getStaticProps = async ({
 
     return {
         paths: pathsData,
-        fallback: false
+        fallback: true
     };
 }
